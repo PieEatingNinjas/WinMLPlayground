@@ -90,7 +90,7 @@ namespace WinMLPlayground.ViewModels
         {
             if(Labels == null)
             {
-                var json = File.ReadAllText(LABELS_PATH);
+                var json = await File.ReadAllTextAsync(LABELS_PATH);
                 Labels = JsonConvert.DeserializeObject<Dictionary<int, string>>(json);
             }
         }
