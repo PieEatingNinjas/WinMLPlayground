@@ -11,10 +11,15 @@
     <Grid
         x:Name="ContentArea"
         Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.-->
+        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button HorizontalAlignment="Center" VerticalAlignment="Top" Click="{x:Bind SelectImage}" Content="Pick image" />
+            <Image Grid.Row="1" Source="{x:Bind ViewModel.ImagePreview, Mode=OneWay}" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+            <ListView Grid.Row="2" ItemsSource="{x:Bind ViewModel.Result}" />
         </Grid>
     </Grid>
 </Page>
