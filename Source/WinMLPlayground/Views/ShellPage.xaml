@@ -28,6 +28,7 @@
             Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
             <winui:NavigationViewItem x:Uid="Shell_SqueezeNet" Icon="Document" helpers:NavHelper.NavigateTo="SqueezeNet" />
+            <winui:NavigationViewItem x:Uid="Shell_ResNet" Icon="Document" helpers:NavHelper.NavigateTo="ResNet" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewHeaderBehavior

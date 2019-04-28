@@ -129,4 +129,8 @@
     <value>SqueezeNet</value>
     <comment>Navigation view item name for SqueezeNet</comment>
   </data>
+  <data name="Shell_ResNet.Content" xml:space="preserve">
+    <value>ResNet</value>
+    <comment>Navigation view item name for ResNet</comment>
+  </data>
 </root>
