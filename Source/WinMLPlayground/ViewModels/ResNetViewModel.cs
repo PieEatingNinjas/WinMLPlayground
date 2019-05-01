@@ -10,7 +10,6 @@ using Windows.AI.MachineLearning;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using WinMLPlayground.Core.Helpers;
 
@@ -25,17 +24,17 @@ namespace WinMLPlayground.ViewModels
 
         ResNet50Model Model;
         ResNet50Input Input;
-        StorageFile InputStorageFile;
 
-
-        private ImageSource imagePreview;
-        public ImageSource ImagePreview
+        private StorageFile selectedFile;
+        public StorageFile SelectedFile
         {
-            get => imagePreview;
+            get => selectedFile;
             set
             {
-                imagePreview = value;
-                RaisePropertyChanged(nameof(ImagePreview));
+                selectedFile = value;
+                RaisePropertyChanged(nameof(SelectedFile));
+                if (value != null)
+                    DoPredictionAsync();
             }
         }
 
@@ -44,21 +43,6 @@ namespace WinMLPlayground.ViewModels
             get;
             set;
         } = new ObservableCollection<string>();
-
-        internal async Task Init(StorageFile storageFile)
-        {
-            InputStorageFile = storageFile;
-            if (InputStorageFile != null)
-            {
-                var bitmap = new BitmapImage();
-                using (var stream = await InputStorageFile.OpenReadAsync())
-                {
-                    await bitmap.SetSourceAsync(stream);
-                }
-                ImagePreview = bitmap;
-                await DoPredictionAsync();
-            }
-        }
 
         private async Task DoPredictionAsync()
         {
@@ -96,7 +80,7 @@ namespace WinMLPlayground.ViewModels
         private async Task BindAsync()
         {
             Input = new ResNet50Input();
-            using (IRandomAccessStream stream = await InputStorageFile.OpenAsync(FileAccessMode.Read))
+            using (IRandomAccessStream stream = await SelectedFile.OpenAsync(FileAccessMode.Read))
             {
                 Input.gpu_00data_0 = await PreProcessAsync(stream);
             }
@@ -113,7 +97,6 @@ namespace WinMLPlayground.ViewModels
 
             int imgSize = 224;
             int channelSize = imgSize * imgSize;
-
             //Normalize to 1, 3, 224, 224
             //(mean =[0.485, 0.456, 0.406], std =[0.229, 0.224, 0.225])
 

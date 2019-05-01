@@ -11,8 +11,6 @@ using Windows.Graphics.Imaging;
 using Windows.Media;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using WinMLPlayground.Core.Helpers;
 
 namespace WinMLPlayground.ViewModels
@@ -26,17 +24,17 @@ namespace WinMLPlayground.ViewModels
 
         SqueezeNetModel Model;
         SqueezeNetInput Input;
-        StorageFile InputStorageFile;
 
-
-        private ImageSource imagePreview;
-        public ImageSource ImagePreview
+        private StorageFile selectedFile;
+        public StorageFile SelectedFile
         {
-            get => imagePreview;
+            get => selectedFile;
             set
             {
-                imagePreview = value;
-                RaisePropertyChanged(nameof(ImagePreview));
+                selectedFile = value;
+                RaisePropertyChanged(nameof(SelectedFile));
+                if(value != null)
+                    DoPredictionAsync();
             }
         }
 
@@ -45,21 +43,6 @@ namespace WinMLPlayground.ViewModels
             get;
             set;
         } = new ObservableCollection<string>();
-
-        internal async Task Init(StorageFile storageFile)
-        {
-            InputStorageFile = storageFile;
-            if (InputStorageFile != null)
-            {
-                var bitmap = new BitmapImage();
-                using (var stream = await InputStorageFile.OpenReadAsync())
-                {
-                    await bitmap.SetSourceAsync(stream);
-                }
-                ImagePreview = bitmap;
-                await DoPredictionAsync();
-            }
-        }
 
         private async Task DoPredictionAsync()
         {
@@ -97,7 +80,7 @@ namespace WinMLPlayground.ViewModels
         private async Task BindAsync()
         {
             Input = new SqueezeNetInput();
-            using (IRandomAccessStream stream = await InputStorageFile.OpenAsync(FileAccessMode.Read))
+            using (IRandomAccessStream stream = await SelectedFile.OpenAsync(FileAccessMode.Read))
             {
                 Input.data_0 = await PreProcessAsync(stream);
             }

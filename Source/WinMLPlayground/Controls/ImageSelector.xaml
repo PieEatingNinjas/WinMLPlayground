@@ -1,0 +1,53 @@
+﻿<UserControl
+    x:Class="WinMLPlayground.Controls.ImageSelector"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:helpers="using:WinMLPlayground.Helpers"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:conv="using:WinMLPlayground.Converters"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <conv:StorageFileToImageConverter x:Name="storageFileConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="Select an image" Grid.ColumnSpan="2" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0, 0, 0, 10" />
+        <controls:AdaptiveGridView
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    OneRowModeEnabled="True"
+                    ItemHeight="150"
+                    DesiredWidth="150"
+                    SelectionMode="Single"
+                    IsItemClickEnabled="True"
+                    SelectedItem="{x:Bind SelectedListItem, Mode=TwoWay}"
+                    ItemsSource="{x:Bind helpers:SampleImagesHelper.Samples()}">
+            <controls:AdaptiveGridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Background="White"
+                        BorderBrush="Black"
+                        BorderThickness="0">
+                        <Image
+                            Source="{Binding Converter={StaticResource storageFileConverter}}"
+                            Stretch="UniformToFill"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </controls:AdaptiveGridView.ItemTemplate>
+        </controls:AdaptiveGridView>
+        <Button Content="Browse..." Grid.Column="0" Grid.Row="1"  Margin="10" Tapped="{x:Bind SelectImage}" />
+    </Grid>
+</UserControl>

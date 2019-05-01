@@ -15,17 +15,5 @@ namespace WinMLPlayground.Views
         {
             InitializeComponent();
         }
-
-        private async void SelectImage()
-        {
-            FileOpenPicker fileOpenPicker = new FileOpenPicker();
-            fileOpenPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            fileOpenPicker.FileTypeFilter.Add(".jpg");
-            fileOpenPicker.FileTypeFilter.Add(".png");
-            fileOpenPicker.ViewMode = PickerViewMode.Thumbnail;
-            StorageFile selectedStorageFile = await fileOpenPicker.PickSingleFileAsync();
-
-            await ViewModel.Init(selectedStorageFile);
-        }
     }
 }
