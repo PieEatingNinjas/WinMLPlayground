@@ -27,8 +27,8 @@
             Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/projectTypes/navigationpane.md
             Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
-            <winui:NavigationViewItem x:Uid="Shell_SqueezeNet" Icon="Document" helpers:NavHelper.NavigateTo="SqueezeNet" />
-            <winui:NavigationViewItem x:Uid="Shell_ResNet" Icon="Document" helpers:NavHelper.NavigateTo="ResNet" />
+            <winui:NavigationViewItem x:Uid="Shell_SqueezeNet" Icon="Tag" helpers:NavHelper.NavigateTo="SqueezeNet" />
+            <winui:NavigationViewItem x:Uid="Shell_ResNet" Icon="Tag" helpers:NavHelper.NavigateTo="ResNet" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewHeaderBehavior
