@@ -110,7 +110,7 @@ namespace WinMLPlayground.ViewModels
                 {
                     for (var y = 0; y < imgSize; y++)
                     {
-                        var color = innerBitmap.GetPixel(y,x);
+                        var color = innerBitmap.GetPixel(y, x);
                         float r, g, b;
 
                         r = color.R;
@@ -130,7 +130,7 @@ namespace WinMLPlayground.ViewModels
                         var indexChannelB = indexChannelG + channelSize;
 
                         normalized[indexChannelR] = r;
-                        normalized[indexChannelG] =g;
+                        normalized[indexChannelG] = g;
                         normalized[indexChannelB] = b;
                     }
                 }
@@ -138,7 +138,7 @@ namespace WinMLPlayground.ViewModels
             }
         }
 
-    private async Task EvaluateAsync()
+        private async Task EvaluateAsync()
         {
             Result.Clear();
 

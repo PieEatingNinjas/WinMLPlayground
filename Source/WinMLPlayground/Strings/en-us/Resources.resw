@@ -137,4 +137,8 @@
     <value>AlexNet</value>
     <comment>Navigation view item name for AlexNet</comment>
   </data>
+  <data name="Shell_ShuffleNet.Content" xml:space="preserve">
+    <value>ShuffleNet</value>
+    <comment>Navigation view item name for ShuffleNet</comment>
+  </data>
 </root>

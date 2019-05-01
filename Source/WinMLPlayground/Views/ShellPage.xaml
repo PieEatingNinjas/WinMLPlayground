@@ -30,6 +30,7 @@
             <winui:NavigationViewItem x:Uid="Shell_SqueezeNet" Icon="Tag" helpers:NavHelper.NavigateTo="SqueezeNet" />
             <winui:NavigationViewItem x:Uid="Shell_ResNet" Icon="Tag" helpers:NavHelper.NavigateTo="ResNet" />
             <winui:NavigationViewItem x:Uid="Shell_AlexNet" Icon="Tag" helpers:NavHelper.NavigateTo="AlexNet" />
+            <winui:NavigationViewItem x:Uid="Shell_ShuffleNet" Icon="Tag" helpers:NavHelper.NavigateTo="ShuffleNet" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewHeaderBehavior

@@ -139,10 +139,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants\PageTokens.cs" />
     <Compile Include="resnet50-1.2.cs" />
+    <Compile Include="shufflenet-1.2.cs" />
     <Compile Include="squeezenet1.2.cs" />
     <Compile Include="ViewModels\AlexNetViewModel.cs" />
     <Compile Include="ViewModels\ResNetViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\ShuffleNetViewModel.cs" />
     <Compile Include="ViewModels\SqueezeNetViewModel.cs" />
     <Compile Include="Views\AlexNetPage.xaml.cs">
       <DependentUpon>AlexNetPage.xaml</DependentUpon>
@@ -152,6 +154,9 @@
     </Compile>
     <Compile Include="Views\ShellPage.xaml.cs">
       <DependentUpon>ShellPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShuffleNetPage.xaml.cs">
+      <DependentUpon>ShuffleNetPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SqueezeNetPage.xaml.cs">
       <DependentUpon>SqueezeNetPage.xaml</DependentUpon>
@@ -194,6 +199,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\ShuffleNetPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\SqueezeNetPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -230,6 +239,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\AlexNet\Labels.json" />
+    <Content Include="Assets\ShuffleNet\shufflenet-1.2.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\ShuffleNet\Labels.json" />
     <None Include="WinMLPlayground_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
