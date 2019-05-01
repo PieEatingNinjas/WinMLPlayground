@@ -1,21 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace WinMLPlayground.Controls
 {
@@ -33,7 +20,7 @@ namespace WinMLPlayground.Controls
         }
 
         public static readonly DependencyProperty SelectedImageProperty =
-            DependencyProperty.Register("SelectedImage", typeof(StorageFile), typeof(ImageSelector), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(SelectedImage), typeof(StorageFile), typeof(ImageSelector), new PropertyMetadata(null));
 
         private StorageFile SelectedListItem
         {
@@ -46,10 +33,8 @@ namespace WinMLPlayground.Controls
             }
         }
 
-        // Using a DependencyProperty as the backing store for SelectedListItem.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedListItemProperty =
-            DependencyProperty.Register("SelectedListItem", typeof(StorageFile), typeof(ImageSelector), new PropertyMetadata(null));
-
+            DependencyProperty.Register(nameof(SelectedListItem), typeof(StorageFile), typeof(ImageSelector), new PropertyMetadata(null));
 
         private async void SelectImage()
         {
