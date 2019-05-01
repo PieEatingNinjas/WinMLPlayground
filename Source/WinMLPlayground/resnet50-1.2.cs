@@ -13,7 +13,7 @@ namespace WinMLPlayground
     
     public sealed class ResNet50Input
     {
-        public ImageFeatureValue gpu_00data_0; // shape(1,3,224,224)
+        public TensorFloat gpu_00data_0; // shape(1,3,224,224)
     }
     
     public sealed class ResNet50Output
