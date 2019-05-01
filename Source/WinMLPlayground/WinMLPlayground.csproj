@@ -134,6 +134,7 @@
       <DependentUpon>ImageSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\StorageFileToImageConverter.cs" />
+    <Compile Include="densenet121-1.2.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\SampleImagesHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="shufflenet-1.2.cs" />
     <Compile Include="squeezenet1.2.cs" />
     <Compile Include="ViewModels\AlexNetViewModel.cs" />
+    <Compile Include="ViewModels\DenseNetViewModel.cs" />
     <Compile Include="ViewModels\ResNetViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ShuffleNetViewModel.cs" />
@@ -149,6 +151,9 @@
     <Compile Include="ViewModels\ZfNetViewModel.cs" />
     <Compile Include="Views\AlexNetPage.xaml.cs">
       <DependentUpon>AlexNetPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DenseNetPage.xaml.cs">
+      <DependentUpon>DenseNetPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ResNetPage.xaml.cs">
       <DependentUpon>ResNetPage.xaml</DependentUpon>
@@ -193,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AlexNetPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DenseNetPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -256,6 +265,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\ZfNet\Labels.json" />
+    <Content Include="Assets\DenseNet\densenet121-1.2.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\DenseNet\Labels.json" />
     <None Include="WinMLPlayground_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

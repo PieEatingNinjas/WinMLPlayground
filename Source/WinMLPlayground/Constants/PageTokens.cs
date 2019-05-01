@@ -7,5 +7,6 @@
         public const string AlexNetPage = "AlexNet";
         public const string ShuffleNetPage = "ShuffleNet";
         public const string ZfNetPage = "ZfNet";
+        public const string DenseNetPage = "DenseNet";
     }
 }

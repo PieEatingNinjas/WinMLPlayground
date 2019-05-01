@@ -145,4 +145,8 @@
     <value>ZfNet</value>
     <comment>Navigation view item name for ZfNet</comment>
   </data>
+  <data name="Shell_DenseNet.Content" xml:space="preserve">
+    <value>DenseNet</value>
+    <comment>Navigation view item name for DenseNet</comment>
+  </data>
 </root>
