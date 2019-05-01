@@ -133,4 +133,8 @@
     <value>ResNet</value>
     <comment>Navigation view item name for ResNet</comment>
   </data>
+  <data name="Shell_AlexNet.Content" xml:space="preserve">
+    <value>AlexNet</value>
+    <comment>Navigation view item name for AlexNet</comment>
+  </data>
 </root>

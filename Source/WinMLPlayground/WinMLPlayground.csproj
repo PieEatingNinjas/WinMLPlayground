@@ -124,6 +124,7 @@
     <PRIResource Include="Strings\en-us\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="alexnet-1.2.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -139,9 +140,13 @@
     <Compile Include="Constants\PageTokens.cs" />
     <Compile Include="resnet50-1.2.cs" />
     <Compile Include="squeezenet1.2.cs" />
+    <Compile Include="ViewModels\AlexNetViewModel.cs" />
     <Compile Include="ViewModels\ResNetViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\SqueezeNetViewModel.cs" />
+    <Compile Include="Views\AlexNetPage.xaml.cs">
+      <DependentUpon>AlexNetPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ResNetPage.xaml.cs">
       <DependentUpon>ResNetPage.xaml</DependentUpon>
     </Compile>
@@ -176,6 +181,10 @@
     <Page Include="Styles\TextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AlexNetPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ResNetPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -217,6 +226,10 @@
     <Content Include="Assets\SqueezeNet\squeezenet1.2.onnx" />
     <Content Include="Assets\ResNet\Labels.json" />
     <Content Include="Assets\ResNet\resnet50-1.2.onnx" />
+    <Content Include="Assets\AlexNet\alexnet-1.2.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\AlexNet\Labels.json" />
     <None Include="WinMLPlayground_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

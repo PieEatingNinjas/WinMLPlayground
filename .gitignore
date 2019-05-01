@@ -328,3 +328,4 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/Source/WinMLPlayground/Assets/AlexNet/alexnet-1.2.onnx
