@@ -32,7 +32,7 @@
             <winui:NavigationViewItem x:Uid="Shell_AlexNet" Icon="Tag" helpers:NavHelper.NavigateTo="AlexNet" />
             <winui:NavigationViewItem x:Uid="Shell_ShuffleNet" Icon="Tag" helpers:NavHelper.NavigateTo="ShuffleNet" />
             <winui:NavigationViewItem x:Uid="Shell_ZfNet" Icon="Tag" helpers:NavHelper.NavigateTo="ZfNet" />
-            <winui:NavigationViewItem x:Uid="Shell_DenseNet" Icon="Document" helpers:NavHelper.NavigateTo="DenseNet" />
+            <winui:NavigationViewItem x:Uid="Shell_DenseNet" Icon="Tag" helpers:NavHelper.NavigateTo="DenseNet" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewHeaderBehavior
