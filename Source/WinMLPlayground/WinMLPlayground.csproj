@@ -137,6 +137,7 @@
     <Compile Include="densenet121-1.2.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\SampleImagesHelper.cs" />
+    <Compile Include="Extensions\WinMLExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants\PageTokens.cs" />
     <Compile Include="resnet50-1.2.cs" />
@@ -283,6 +284,7 @@
       <Name>WinMLPlayground.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -7,11 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.AI.MachineLearning;
-using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using Windows.UI.Xaml.Media.Imaging;
 using WinMLPlayground.Core.Helpers;
+using WinMLPlayground.WinMLExtensions;
 
 namespace WinMLPlayground.ViewModels
 {
@@ -89,53 +88,7 @@ namespace WinMLPlayground.ViewModels
         private async Task<TensorFloat> PreProcessAsync(IRandomAccessStream stream)
         {
             //ToDo: CenterCrop 224
-            BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-            var softwareBitmap = await decoder.GetSoftwareBitmapAsync();
-            softwareBitmap = SoftwareBitmap.Convert(softwareBitmap, BitmapPixelFormat.Rgba8, BitmapAlphaMode.Premultiplied);
-            WriteableBitmap innerBitmap = new WriteableBitmap(softwareBitmap.PixelWidth, softwareBitmap.PixelHeight);
-            softwareBitmap.CopyToBuffer(innerBitmap.PixelBuffer);
-
-            int imgSize = 224;
-            int channelSize = imgSize * imgSize;
-            //Normalize to 1, 3, 224, 224
-            //(mean =[0.485, 0.456, 0.406], std =[0.229, 0.224, 0.225])
-
-            using (var context = innerBitmap.GetBitmapContext())
-            {
-                int[] src = context.Pixels;
-
-                var normalized = new float[imgSize * imgSize * 3];
-
-                for (var x = 0; x < imgSize; x++)
-                {
-                    for (var y = 0; y < imgSize; y++)
-                    {
-                        var color = innerBitmap.GetPixel(y, x);
-                        float r, g, b;
-
-                        r = color.R;
-                        g = color.G;
-                        b = color.B;
-
-                        r = r / 255f;
-                        g = g / 255f;
-                        b = b / 255f;
-
-                        r = (r - 0.485f) / 0.229f;
-                        g = (g - 0.456f) / 0.224f;
-                        b = (b - 0.406f) / 0.225f;
-
-                        var indexChannelR = (x * imgSize) + y;
-                        var indexChannelG = indexChannelR + channelSize;
-                        var indexChannelB = indexChannelG + channelSize;
-
-                        normalized[indexChannelR] = r;
-                        normalized[indexChannelG] = g;
-                        normalized[indexChannelB] = b;
-                    }
-                }
-                return TensorFloat.CreateFromArray(new List<long>() { 1, 3, imgSize, imgSize }, normalized);
-            }
+            return await stream.NormalizeImageForImageNetAsync(224);
         }
 
         private async Task EvaluateAsync()
