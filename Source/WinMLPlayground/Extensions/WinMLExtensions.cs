@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.AI.MachineLearning;
 using Windows.Graphics.Imaging;
+using Windows.Media;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -64,6 +65,21 @@ namespace WinMLPlayground.WinMLExtensions
             return await NormalizeImageAsync(stream, imageSize,
                 new float[] { 0.485f, 0.456f, 0.406f },
                 new float[] { 0.229f, 0.224f, 0.225f });
+        }
+
+        public static async Task<ImageFeatureValue> GetAsImageFeatureValue(this IRandomAccessStream stream)
+        {
+            SoftwareBitmap softwareBitmap;
+            // Create the decoder from the stream 
+            BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
+
+            // Get the SoftwareBitmap representation of the file in BGRA8 format
+            softwareBitmap = await decoder.GetSoftwareBitmapAsync();
+            softwareBitmap = SoftwareBitmap.Convert(softwareBitmap, BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
+
+            VideoFrame videoFrame = VideoFrame.CreateWithSoftwareBitmap(softwareBitmap);
+
+            return ImageFeatureValue.CreateFromVideoFrame(videoFrame);
         }
     }
 }

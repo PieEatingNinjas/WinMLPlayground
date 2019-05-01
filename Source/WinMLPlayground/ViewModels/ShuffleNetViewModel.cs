@@ -1,110 +1,38 @@
-﻿using Newtonsoft.Json;
-using Prism.Windows.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.AI.MachineLearning;
-using Windows.Storage;
 using Windows.Storage.Streams;
-using WinMLPlayground.Core.Helpers;
+using WinMLPlayground.ViewModels.Base;
 using WinMLPlayground.WinMLExtensions;
 
 namespace WinMLPlayground.ViewModels
 {
-    public class ShuffleNetViewModel : ViewModelBase
+    public class ShuffleNetViewModel
+        : ClassificationVMBase<ShuffleNetModel, ShuffleNetInput, ShuffleNetOutput, TensorFloat>
     {
-
         const string MODEL_PATH = "Assets/ShuffleNet/shufflenet-1.2.onnx";
         const string LABELS_PATH = "Assets/ShuffleNet/Labels.json";
 
-        Dictionary<int, string> Labels;
+        public ShuffleNetViewModel()
+            : base(MODEL_PATH, LABELS_PATH)
+        { }
 
-        ShuffleNetModel Model;
-        ShuffleNetInput Input;
+        protected override Task<ShuffleNetModel> GetModelFromStreamAsync(IRandomAccessStreamReference stream)
+            => ShuffleNetModel.CreateFromStreamAsync(stream);
 
-        private StorageFile selectedFile;
-        public StorageFile SelectedFile
-        {
-            get => selectedFile;
-            set
+        protected override ShuffleNetInput CreateInput(TensorFloat data)
+            => new ShuffleNetInput
             {
-                selectedFile = value;
-                RaisePropertyChanged(nameof(SelectedFile));
-                if (value != null)
-                    DoPredictionAsync();
-            }
-        }
+                gpu_00data_0 = data
+            };
 
-        public ObservableCollection<string> Result
-        {
-            get;
-            set;
-        } = new ObservableCollection<string>();
+        protected override Task<TensorFloat> PreProcessAsync(IRandomAccessStream stream)
+            => stream.NormalizeImageForImageNetAsync(224);
 
-        private async Task DoPredictionAsync()
-        {
-            await LoadAsync();
-            await BindAsync();
-            await EvaluateAsync();
-        }
+        protected override Task<ShuffleNetOutput> EvaluateAsync(ShuffleNetModel model, ShuffleNetInput input)
+            => model.EvaluateAsync(input);
 
-        private async Task LoadAsync()
-        {
-            var loadModel = LoadModelAsync();
-            var loadLabels = LoadLabelsAsync();
-            await Task.WhenAll(loadModel, loadLabels);
-        }
-
-        private async Task LoadModelAsync()
-        {
-            if (Model == null)
-            {
-                StorageFile modelFile =
-                       await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///{MODEL_PATH}"));
-                Model = await ShuffleNetModel.CreateFromStreamAsync(modelFile as IRandomAccessStreamReference);
-            }
-        }
-
-        private async Task LoadLabelsAsync()
-        {
-            if (Labels == null)
-            {
-                var json = await File.ReadAllTextAsync(LABELS_PATH);
-                Labels = JsonConvert.DeserializeObject<Dictionary<int, string>>(json);
-            }
-        }
-
-        private async Task BindAsync()
-        {
-            Input = new ShuffleNetInput();
-            using (IRandomAccessStream stream = await SelectedFile.OpenAsync(FileAccessMode.Read))
-            {
-                Input.gpu_00data_0 = await PreProcessAsync(stream);
-            }
-        }
-
-        private async Task<TensorFloat> PreProcessAsync(IRandomAccessStream stream)
-        {
-            //ToDo: CenterCrop 224
-            return await stream.NormalizeImageForImageNetAsync(224);
-        }
-
-        private async Task EvaluateAsync()
-        {
-            Result.Clear();
-
-            var ModelOutput = await Model.EvaluateAsync(Input);
-
-            var resultVector = ModelOutput.gpu_00softmax_1.GetAsVectorView();
-
-            var result = MLHelper.GetSoftMaxResult(resultVector);
-
-            var top = result.OrderByDescending(ms => ms.probability).Take(5).ToList();
-
-            top.ForEach(i => Result.Add($"{Labels[i.index]} - {i.probability:P2}"));
-        }
+        protected override IReadOnlyList<float> GetResultVector(ShuffleNetOutput output)
+            => output.gpu_00softmax_1.GetAsVectorView();
     }
 }
