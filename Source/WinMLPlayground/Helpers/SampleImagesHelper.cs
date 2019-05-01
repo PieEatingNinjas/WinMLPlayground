@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Storage;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace WinMLPlayground.Helpers
 {
@@ -24,17 +22,10 @@ namespace WinMLPlayground.Helpers
 
         private static async Task LoadSampleImages()
         {
-            var localizationDirectory = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\SampleImages");
+            var localizationDirectory = await Package.Current.InstalledLocation.GetFolderAsync(@"Assets\SampleImages");
             var files = await localizationDirectory.GetFilesAsync();
-            foreach (var file in files)
-            {
-                //var bitmap = new BitmapImage();
-                //using (var stream = await file.OpenReadAsync())
-                //{
-                //    await bitmap.SetSourceAsync(stream);
-                //}
-                _Samples.Add(file);
-            }
+
+            files.ToList().ForEach(_Samples.Add);
         }
     }
 }
