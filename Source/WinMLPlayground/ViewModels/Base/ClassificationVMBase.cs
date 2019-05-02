@@ -12,7 +12,8 @@ using WinMLPlayground.Core.Helpers;
 
 namespace WinMLPlayground.ViewModels.Base
 {
-    public abstract class ClassificationVMBase<TModel, TInput, TOutput, TInputData> : ViewModelBase
+    public abstract class ClassificationVMBase<TModel, TInput, TOutput, TInputData>
+        : ViewModelBase, IClassificationViewModel
     {
         readonly string ModelPath;
         readonly string LabelsPath;

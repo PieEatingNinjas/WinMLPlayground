@@ -130,6 +130,9 @@
     </Compile>
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
+    <Compile Include="Controls\ImageClassification.xaml.cs">
+      <DependentUpon>ImageClassification.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ImageSelector.xaml.cs">
       <DependentUpon>ImageSelector.xaml</DependentUpon>
     </Compile>
@@ -145,6 +148,7 @@
     <Compile Include="squeezenet1.2.cs" />
     <Compile Include="ViewModels\AlexNetViewModel.cs" />
     <Compile Include="ViewModels\Base\ClassificationVMBase.cs" />
+    <Compile Include="ViewModels\Base\IClassificationViewModel.cs" />
     <Compile Include="ViewModels\DenseNetViewModel.cs" />
     <Compile Include="ViewModels\ResNetViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
@@ -175,6 +179,10 @@
     <Compile Include="zfnet512-1.2.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\ImageClassification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ImageSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
