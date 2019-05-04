@@ -13,7 +13,7 @@ namespace WinMLPlayground
     
     public sealed class SqueezeNetInput
     {
-        public ImageFeatureValue data_0; // shape(1,3,224,224)
+        public TensorFloat data_0; // shape(1,3,224,224)
     }
     
     public sealed class SqueezeNetOutput

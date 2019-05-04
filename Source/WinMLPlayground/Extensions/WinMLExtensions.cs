@@ -11,8 +11,8 @@ namespace WinMLPlayground.WinMLExtensions
 {
     public static class WinMLExtensions
     {
-        private static async Task<TensorFloat> NormalizeImageAsync(IRandomAccessStream stream,
-            int imageSize, float[] mean, float[]std)
+        public static async Task<TensorFloat> GetAsTensorFloat(this IRandomAccessStream stream,
+            int imageSize, float[] mean = null, float[] std = null)
         {
             BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
             var softwareBitmap = await decoder.GetSoftwareBitmapAsync();
@@ -39,13 +39,16 @@ namespace WinMLPlayground.WinMLExtensions
                         g = color.G;
                         b = color.B;
 
-                        r = r / 255f;
-                        g = g / 255f;
-                        b = b / 255f;
+                        if (mean != null && std != null)
+                        {
+                            r /= 255f;
+                            g /= 255f;
+                            b /= 255f;
 
-                        r = (r - mean[0]) / std[0];
-                        g = (g - mean[1]) / std[1];
-                        b = (b - mean[2]) / std[2];
+                            r = (r - mean[0]) / std[0];
+                            g = (g - mean[1]) / std[1];
+                            b = (b - mean[2]) / std[2];
+                        }
 
                         var indexChannelR = (x * imageSize) + y;
                         var indexChannelG = indexChannelR + channelSize;
@@ -60,12 +63,8 @@ namespace WinMLPlayground.WinMLExtensions
             }
         }
 
-        public static async Task<TensorFloat> NormalizeImageForImageNetAsync(this IRandomAccessStream stream, int imageSize)
-        {
-            return await NormalizeImageAsync(stream, imageSize,
-                new float[] { 0.485f, 0.456f, 0.406f },
-                new float[] { 0.229f, 0.224f, 0.225f });
-        }
+        public static Task<TensorFloat> GetAsDefaultImageNetNormalizedTensorFloat(this IRandomAccessStream stream, int imageSize = 224)
+            => stream.GetAsTensorFloat(imageSize, new float[] { 0.485f, 0.456f, 0.406f }, new float[] { 0.229f, 0.224f, 0.225f });
 
         public static async Task<ImageFeatureValue> GetAsImageFeatureValue(this IRandomAccessStream stream)
         {

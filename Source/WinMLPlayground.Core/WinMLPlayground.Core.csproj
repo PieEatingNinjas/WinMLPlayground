@@ -4,8 +4,4 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>WinMLPlayground.Core</RootNamespace>
   </PropertyGroup>
-
-   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
 </Project>

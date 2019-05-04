@@ -33,6 +33,6 @@ namespace WinMLPlayground.ViewModels
             => output.fc6_1.GetAsVectorView();
 
         protected override Task<TensorFloat> PreProcessAsync(IRandomAccessStream stream)
-            => stream.NormalizeImageForImageNetAsync(224);
+            => stream.GetAsDefaultImageNetNormalizedTensorFloat();
     }
 }

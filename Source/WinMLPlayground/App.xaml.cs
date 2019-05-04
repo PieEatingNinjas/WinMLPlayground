@@ -14,6 +14,7 @@ using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
+using WinMLPlayground.Core.Services;
 using WinMLPlayground.Views;
 
 namespace WinMLPlayground
@@ -31,6 +32,7 @@ namespace WinMLPlayground
             // register a singleton using Container.RegisterType<IInterface, Type>(new ContainerControlledLifetimeManager());
             base.ConfigureContainer();
             Container.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
+            Container.RegisterType<ISampleDataService, SampleDataService>();
         }
 
         protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)

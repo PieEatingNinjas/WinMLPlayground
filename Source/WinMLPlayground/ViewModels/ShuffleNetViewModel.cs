@@ -27,7 +27,7 @@ namespace WinMLPlayground.ViewModels
             };
 
         protected override Task<TensorFloat> PreProcessAsync(IRandomAccessStream stream)
-            => stream.NormalizeImageForImageNetAsync(224);
+            => stream.GetAsDefaultImageNetNormalizedTensorFloat();
 
         protected override Task<ShuffleNetOutput> EvaluateAsync(ShuffleNetModel model, ShuffleNetInput input)
             => model.EvaluateAsync(input);

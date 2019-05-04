@@ -8,7 +8,7 @@ using WinMLPlayground.WinMLExtensions;
 namespace WinMLPlayground.ViewModels
 {
     public class AlexNetViewModel
-        : ClassificationVMBase<AlexNetModel, AlexNetInput, AlexNetOutput, ImageFeatureValue>
+        : ClassificationVMBase<AlexNetModel, AlexNetInput, AlexNetOutput, TensorFloat>
     {
         const string MODEL_PATH = "Assets/AlexNet/alexnet-1.2.onnx";
         const string LABELS_PATH = "Assets/AlexNet/Labels.json";
@@ -17,7 +17,7 @@ namespace WinMLPlayground.ViewModels
             : base(MODEL_PATH, LABELS_PATH)
         { }
 
-        protected override AlexNetInput CreateInput(ImageFeatureValue data)
+        protected override AlexNetInput CreateInput(TensorFloat data)
             => new AlexNetInput
             {
                 data_0 = data
@@ -32,7 +32,7 @@ namespace WinMLPlayground.ViewModels
         protected override IReadOnlyList<float> GetResultVector(AlexNetOutput output)
             => output.prob_1.GetAsVectorView();
 
-        protected override Task<ImageFeatureValue> PreProcessAsync(IRandomAccessStream stream)
-            => stream.GetAsImageFeatureValue();
+        protected override Task<TensorFloat> PreProcessAsync(IRandomAccessStream stream)
+            => stream.GetAsTensorFloat(224);
     }
 }
